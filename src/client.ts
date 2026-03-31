@@ -5,12 +5,17 @@ export class MindboxClient {
   private secretKey: string;
   private endpointId: string;
 
-  constructor() {
-    this.secretKey = process.env.MINDBOX_SECRET_KEY ?? "";
-    this.endpointId = process.env.MINDBOX_ENDPOINT_ID ?? "";
+  constructor(secretKey?: string, endpointId?: string) {
+    this.secretKey = secretKey
+      ?? process.env.MINDBOX_API_KEY
+      ?? process.env.MINDBOX_SECRET_KEY
+      ?? "";
+    this.endpointId = endpointId
+      ?? process.env.MINDBOX_ENDPOINT_ID
+      ?? "";
     if (!this.secretKey) {
       throw new Error(
-        "Переменная окружения MINDBOX_SECRET_KEY обязательна. " +
+        "Переменная окружения MINDBOX_API_KEY (или MINDBOX_SECRET_KEY) обязательна. " +
         "Получите ключ в личном кабинете Mindbox."
       );
     }
