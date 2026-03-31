@@ -4,9 +4,15 @@
   "description": "MCP server for Mindbox CDP API — customer profiles, orders, segments. 3 tools.",
   "type": "module",
   "main": "dist/index.js",
-  "bin": { "mindbox-mcp": "dist/index.js" },
-  "files": ["dist"],
-  "engines": { "node": ">=18.0.0" },
+  "bin": {
+    "mindbox-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
@@ -22,14 +28,34 @@
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   },
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
-    "mcp", "mcp-server", "model-context-protocol", "modelcontextprotocol",
-    "claude", "ai", "llm", "anthropic", "cursor", "ai-tools", "ai-agent",
-    "russian-api", "mindbox", "cdp", "crm", "customer", "marketing-automation"
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "modelcontextprotocol",
+    "claude",
+    "ai",
+    "llm",
+    "anthropic",
+    "cursor",
+    "ai-tools",
+    "ai-agent",
+    "russian-api",
+    "mindbox",
+    "cdp",
+    "crm",
+    "customer",
+    "marketing-automation"
   ],
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/theYahia/mindbox-mcp.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theYahia/mindbox-mcp.git"
+  },
   "homepage": "https://github.com/theYahia/mindbox-mcp#readme",
-  "author": "theYahia (https://github.com/theYahia)"
+  "author": "theYahia (https://github.com/theYahia)",
+  "mcpName": "io.github.theYahia/mindbox-mcp"
 }
