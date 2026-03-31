@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "mindbox": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@theyahia/mindbox-mcp"
+      ],
+      "env": {
+        "MINDBOX_SECRET_KEY": "YOUR_SECRET_KEY",
+        "MINDBOX_ENDPOINT_ID": "YOUR_ENDPOINT_ID"
+      }
+    }
+  }
+}
