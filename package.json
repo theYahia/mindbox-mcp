@@ -1,14 +1,16 @@
 {
   "name": "@theyahia/mindbox-mcp",
-  "version": "1.1.1",
-  "description": "MCP server for Mindbox — CDP, customer profiles, segmentation (Russia)",
+  "version": "1.1.0",
+  "description": "MCP server for Mindbox CDP API — customer profiles, orders, segments, product lists, and custom operations. 6 tools. Stdio + Streamable HTTP.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "mindbox-mcp": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "skills",
+    "smithery.yaml"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -16,8 +18,12 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
+    "dev:http": "tsx src/index.ts --http",
     "start": "node dist/index.js",
-    "prepublishOnly": "npm run build"
+    "start:http": "node dist/index.js --http",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
@@ -26,7 +32,8 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.1.1"
   },
   "publishConfig": {
     "access": "public"
@@ -49,9 +56,7 @@
     "crm",
     "customer",
     "marketing-automation",
-    "api",
-    "typescript",
-    "marketing"
+    "streamable-http"
   ],
   "license": "MIT",
   "repository": {
@@ -59,5 +64,6 @@
     "url": "https://github.com/theYahia/mindbox-mcp.git"
   },
   "homepage": "https://github.com/theYahia/mindbox-mcp#readme",
-  "author": "theYahia (https://github.com/theYahia)"
+  "author": "theYahia (https://github.com/theYahia)",
+  "mcpName": "io.github.theYahia/mindbox-mcp"
 }
