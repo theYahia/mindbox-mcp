@@ -1,7 +1,7 @@
 {
   "name": "@theyahia/mindbox-mcp",
   "version": "1.1.0",
-  "description": "MCP server for Mindbox CDP API — customer profiles, orders, segments, product lists, and custom operations. 6 tools. Stdio + Streamable HTTP.",
+  "description": "MCP server for Mindbox — CDP, customer profiles, segmentation (Russia)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -56,7 +56,10 @@
     "crm",
     "customer",
     "marketing-automation",
-    "streamable-http"
+    "streamable-http",
+    "api",
+    "typescript",
+    "marketing"
   ],
   "license": "MIT",
   "repository": {
