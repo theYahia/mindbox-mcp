@@ -1,30 +1,32 @@
 import { z } from "zod";
-import { MindboxClient } from "../client.js";
-import type { MindboxOperationResponse } from "../types.js";
-
-const client = new MindboxClient();
+import { getClient } from "../client.js";
+import { applyIdentifiers, NO_IDENTIFIER_MSG } from "../identify.js";
+import { describeFailure, isSuccess, toOperationResponse } from "../response.js";
 
 export const getSegmentsSchema = z.object({
-  operation: z.string().default("Website.GetCustomerSegments").describe("Системное имя операции Mindbox для получения сегментов клиента"),
-  email: z.string().optional().describe("Email клиента"),
-  phone: z.string().optional().describe("Телефон клиента"),
-  external_id: z.string().optional().describe("Внешний ID клиента"),
+  operation: z
+    .string()
+    .default("Website.GetCustomerSegments")
+    .describe(
+      "Системное имя операции Mindbox для получения сегментов клиента (должно совпадать с настроенным в проекте)",
+    ),
+  email: z.string().email().optional().describe("Email клиента"),
+  phone: z.string().trim().optional().describe("Телефон клиента"),
+  external_id: z.string().trim().optional().describe("Внешний ID клиента"),
 });
 
-export async function handleGetSegments(params: z.infer<typeof getSegmentsSchema>): Promise<string> {
+export async function handleGetSegments(
+  params: z.infer<typeof getSegmentsSchema>,
+): Promise<string> {
   const customer: Record<string, unknown> = {};
-  if (params.email) customer.email = params.email;
-  if (params.phone) customer.mobilePhone = params.phone;
-  if (params.external_id) customer.ids = { externalId: params.external_id };
-
-  if (Object.keys(customer).length === 0) {
-    return "Укажите хотя бы один идентификатор клиента: email, phone или external_id.";
+  if (!applyIdentifiers(customer, params)) {
+    return NO_IDENTIFIER_MSG;
   }
 
-  const result = (await client.operation(params.operation, { customer })) as MindboxOperationResponse;
+  const result = toOperationResponse(await getClient().operation(params.operation, { customer }));
 
-  if (result.status !== "Success") {
-    return `Ошибка получения сегментов. Статус: ${result.status}. ${result.errorMessage ?? ""}`;
+  if (!isSuccess(result)) {
+    return `Ошибка получения сегментов. ${describeFailure(result)}`;
   }
 
   const segments = result.customerSegmentations ?? [];
@@ -33,12 +35,16 @@ export async function handleGetSegments(params: z.infer<typeof getSegmentsSchema
     return "Сегменты для данного клиента не найдены.";
   }
 
-  return JSON.stringify({
-    статус: result.status,
-    сегменты: segments.map(s => ({
-      сегментация: s.segmentation?.name,
-      сегмент: s.segment?.name,
-      количество_клиентов: s.segment?.customerCount,
-    })),
-  }, null, 2);
+  return JSON.stringify(
+    {
+      статус: result.status,
+      сегменты: segments.map((s) => ({
+        сегментация: s.segmentation?.name,
+        сегмент: s.segment?.name,
+        количество_клиентов: s.segment?.customerCount,
+      })),
+    },
+    null,
+    2,
+  );
 }

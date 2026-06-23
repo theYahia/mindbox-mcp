@@ -9,11 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [18, 20, 22]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: npm
       - run: npm ci
       - run: npm run build
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      # Smoke: сервер должен импортироваться и отдавать инструменты БЕЗ credentials
+      # (tool-discovery / Smithery scan / `npx` без env не должны падать).
+      - name: Discovery import without credentials
+        env:
+          MINDBOX_API_KEY: ""
+          MINDBOX_SECRET_KEY: ""
+          MINDBOX_ENDPOINT_ID: ""
+        run: node --input-type=module -e "await import('./dist/tools/customer.js'); await import('./dist/tools/order.js'); await import('./dist/tools/run-operation.js'); console.log('discovery-import-ok')"
