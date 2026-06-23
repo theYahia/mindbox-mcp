@@ -1,7 +1,7 @@
 {
   "name": "@theyahia/mindbox-mcp",
   "version": "1.1.0",
-  "description": "MCP server for Mindbox — CDP, customer profiles, segmentation (Russia)",
+  "description": "MCP server for Mindbox — CDP, customer profiles, orders, segmentation (Russia)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -10,19 +10,27 @@
   "files": [
     "dist",
     "skills",
-    "smithery.yaml"
+    "smithery.yaml",
+    "server.json"
   ],
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc",
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "tsx src/index.ts",
     "dev:http": "tsx src/index.ts --http",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
     "test": "vitest run",
     "test:watch": "vitest",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
@@ -30,9 +38,13 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@types/node": "^22.0.0",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
+    "typescript-eslint": "^8.18.0",
     "vitest": "^3.1.1"
   },
   "publishConfig": {

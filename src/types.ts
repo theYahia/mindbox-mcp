@@ -52,13 +52,22 @@ export interface MindboxSegment {
   customerCount?: number;
 }
 
+export interface MindboxValidationMessage {
+  message?: string;
+  location?: string;
+}
+
 export interface MindboxOperationResponse {
   status: string;
   customer?: MindboxCustomer;
   order?: MindboxOrder;
   customerSegmentations?: MindboxSegmentationGroup[];
+  products?: unknown[];
+  productList?: unknown[];
+  totalCount?: number;
   errorId?: string;
   errorMessage?: string;
+  validationMessages?: MindboxValidationMessage[];
 }
 
 export interface MindboxSegmentationGroup {

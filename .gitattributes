@@ -1,0 +1,5 @@
+# Нормализовать переводы строк к LF в репозитории и на checkout.
+# Важно для shebang в dist/index.js — CRLF ломает `#!/usr/bin/env node` на Unix.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
