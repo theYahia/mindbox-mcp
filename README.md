@@ -153,3 +153,7 @@ npm run lint         # ESLint
 ## Лицензия
 
 MIT
+
+---
+
+Часть [WWmcp](https://github.com/theYahia/WWmcp) · Telegram: [@vhodvai](https://t.me/vhodvai)
