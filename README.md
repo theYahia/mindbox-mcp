@@ -1,6 +1,6 @@
-# @theyahia/mindbox-mcp
+# MCP-сервер для Mindbox CDP — профили клиентов, заказы и сегменты через ИИ
 
-MCP-сервер для API Mindbox CDP — профили клиентов, заказы, сегменты, списки товаров и произвольные операции.
+Если вы искали, как подключить Mindbox к нейросети, поднять профиль клиента или проверить сегмент без выгрузки в Excel — это оно. 6 инструментов: профили и подписки, заказы, сегменты, списки товаров и произвольные операции Mindbox API. Спрашиваете «что покупал клиент с этим email» — получаете историю, а не тикет в поддержку.
 
 [![npm](https://img.shields.io/npm/v/@theyahia/mindbox-mcp)](https://www.npmjs.com/package/@theyahia/mindbox-mcp)
 [![CI](https://github.com/theYahia/mindbox-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/theYahia/mindbox-mcp/actions/workflows/ci.yml)
